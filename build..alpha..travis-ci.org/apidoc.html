@@ -1,0 +1,233 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/pilwon/node-get-config"
+
+    >get-config (v0.6.15)</a>
+</h1>
+<h4>Automagically builds a config object used throughout an application.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.get-config">module get-config</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.get-config.env">
+            function <span class="apidocSignatureSpan">get-config.</span>env
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.get-config.load">
+            function <span class="apidocSignatureSpan">get-config.</span>load
+            <span class="apidocSignatureSpan">(configDir, env, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.get-config.loadSync">
+            function <span class="apidocSignatureSpan">get-config.</span>loadSync
+            <span class="apidocSignatureSpan">(configDir, env)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.get-config" id="apidoc.module.get-config">module get-config</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.get-config.env" id="apidoc.element.get-config.env">
+        function <span class="apidocSignatureSpan">get-config.</span>env
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">env = function () {
+    var args = [];
+    for (var _i = 0; _i &#x3c; arguments.length; _i++) {
+        args[_i - 0] = arguments[_i];
+    }
+    var extras = _buildExtras(args);
+    var nodeEnv = (process.env.NODE_ENV || &#x27;&#x27;).toLowerCase();
+    for (var i = 0; i &#x3c; extras.length; ++i) {
+        var extra = extras[i];
+        if (lodash_1.includes(extra.rules, nodeEnv)) {
+            return extra.env;
+        }
+    }
+    if (lodash_1.includes(PROD_RULES, nodeEnv)) {
+        return &#x27;prod&#x27;;
+    }
+    if (lodash_1.includes(DEV_RULES, nodeEnv) || nodeEnv === &#x27;&#x27;) {
+        return &#x27;dev&#x27;;
+    }
+    throw new Error(&#x22;Unknown environment name: NODE_ENV=&#x22; + nodeEnv);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+* YAML: `npm install js-yaml`
+
+
+## Usage
+
+```js
+const getConfig = require(&#x27;get-config&#x27;);
+const env = getConfig.<span class="apidocCodeKeywordSpan">env</span>();  // alias to &#x22;get-env&#x22;
+
+// Option 1: Async/Await
+try {
+  const config = await getConfig.load(`${__dirname}/config`, env);
+} catch (err) {...}
+
+// Option 2: Promise
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.get-config.load" id="apidoc.element.get-config.load">
+        function <span class="apidocSignatureSpan">get-config.</span>load
+        <span class="apidocSignatureSpan">(configDir, env, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function load(configDir, env, callback) {
+    if (lodash_1.isFunction(env)) {
+        callback = env;
+        env = void 0;
+    }
+    var _a = _setup(configDir, env, callback), envDir = _a.envDir, overrideDir = _a.overrideDir;
+    if (lodash_1.isFunction(callback)) {
+        return _load(configDir, envDir, overrideDir)
+            .then(function (result) { return callback(null, result); })
+            .catch(function (err) { return callback(err); });
+    }
+    return _load(configDir, envDir, overrideDir);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+# get-config
+
+`get-config` is a [Node.js](http://nodejs.org/) library automagically building a config object used throughout an application.
+
+```js
+// Asynchronous (Async/Await)
+try {
+const config = await require(&#x27;get-config&#x27;).<span class="apidocCodeKeywordSpan">load</span>(`${__dirname}/config`);
+} catch (err) {...}
+
+// Asynchronous (Promise)
+require(&#x27;get-config&#x27;).load(`${__dirname}/config`)
+.then(config =&#x3e; {...})
+.catch(err =&#x3e; {...});
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.get-config.loadSync" id="apidoc.element.get-config.loadSync">
+        function <span class="apidocSignatureSpan">get-config.</span>loadSync
+        <span class="apidocSignatureSpan">(configDir, env)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function loadSync(configDir, env) {
+    var _a = _setup(configDir, env), envDir = _a.envDir, overrideDir = _a.overrideDir;
+    assert(fs_1.existsSync(configDir) &#x26;&#x26; fs_1.isDirSync(configDir), &#x22;\&#x22;configDir\&#x22; should be a directory path: &#x22; + configDir);
+    var results = [_loadDirSync(configDir)];
+    if (fs_1.existsSync(envDir) &#x26;&#x26; fs_1.isDirSync(envDir)) {
+        results.push(_loadDirSync(envDir));
+    }
+    if (fs_1.existsSync(overrideDir) &#x26;&#x26; fs_1.isDirSync(overrideDir)) {
+        results.push(_loadDirSync(overrideDir));
+    }
+    return lodash_1.merge.apply(null, results);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  .catch(err =&#x3e; {...});
+
+// Asynchronous (Callback)
+require(&#x27;get-config&#x27;).load(`${__dirname}/config`, (err, config) =&#x3e; {...});
+
+// Synchronous
+try {
+  const config = require(&#x27;get-config&#x27;).<span class="apidocCodeKeywordSpan">loadSync</span>(`${__dirname}/config`);
+} catch (err) {...}
+```
+
+* Both **promises** and **callback** (via [Bluebird](https://github.com/petkaantonov/bluebird)) styles are supported.
+* Synchronous version is also supported. (`.loadSync()`)
+* [get-env](https://github.com/pilwon/node-get-env) is used to parse `process.env.NODE_ENV`.
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
