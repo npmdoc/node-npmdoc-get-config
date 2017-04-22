@@ -1,4 +1,7 @@
-# api documentation for  [get-config (v0.6.15)](https://github.com/pilwon/node-get-config)  [![npm package](https://img.shields.io/npm/v/npmdoc-get-config.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-get-config) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-get-config.svg)](https://travis-ci.org/npmdoc/node-npmdoc-get-config)
+# npmdoc-get-config
+
+#### api documentation for  [get-config (v0.6.15)](https://github.com/pilwon/node-get-config)  [![npm package](https://img.shields.io/npm/v/npmdoc-get-config.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-get-config) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-get-config.svg)](https://travis-ci.org/npmdoc/node-npmdoc-get-config)
+
 #### Automagically builds a config object used throughout an application.
 
 [![NPM](https://nodei.co/npm/get-config.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/get-config)
@@ -81,7 +84,8 @@
     },
     "scripts": {},
     "types": "dist/index.d.ts",
-    "version": "0.6.15"
+    "version": "0.6.15",
+    "bin": {}
 }
 ```
 
